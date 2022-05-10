@@ -1,0 +1,227 @@
+.clock {
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    right: 0;
+    top: 15%;
+    font-size: 6vh;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+
+.clock .seconds {
+    font-size: 3vh;
+}
+
+.search-bar input {
+    position: absolute;
+    width: 18%;
+    height: 6%;
+    top: 25%;
+    right: 41%;
+    border-radius: 6vh;
+    border: none;
+    background-color: rgba(238, 238, 238, 0.4);
+    transition-duration: 1s;
+    text-align: center;
+}
+
+.search-bar input:hover {
+    width: 30%;
+    right: 35%;
+    background-color: rgba(238, 238, 238, 0.6);
+}
+
+.search-bar input:focus {
+    width: 30%;
+    right: 35%;
+    background-color: rgba(238, 238, 238, 0.6);
+}
+
+.save-sites {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition-duration: 1s;
+    transform: scaleX(0);
+    transform-origin: 0% 50%;
+    display: block;
+    z-index: 1;
+    
+}
+
+.save-sites .single-site {
+    display: block;
+    width: 85px;
+    height: 135px;
+    margin-top: 1vw;
+    margin-left: 25px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px gray;
+    text-decoration: none;
+    padding: 10px;
+    padding-top: 5px;
+    color: rgb(18, 18, 18);
+    float: left;
+}
+
+.save-sites .single-site:hover {
+    background-color: rgba(125, 125, 125, 0.4);
+}
+
+.save-sites .single-site img {
+    width: 70px;
+    height: 70px;
+    margin: 10px;
+    margin-bottom: 5px;
+    border-radius: 70px;
+}
+
+.save-sites .single-site span {
+    display: block;
+    word-wrap: break-word;
+    /* margin-left: 5px;
+    margin-right: 5px; */
+}
+
+.save-sites .manage {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    display: block;
+    left: 25%;
+    top: 15%;
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 2;
+    transition-duration: 1s;
+    transform: scale(0);
+}
+
+.save-sites .manage .display-current {
+    width: 70%;
+    height: 100%;
+    display: block;
+    border-right: 1px solid black;
+    position: absolute;
+    left: 0;
+}
+
+.save-sites .manage .display-current div {
+    width: 85%;
+    display: block;
+    margin: 5%;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2.5%;
+    word-wrap: break-word;
+    border-radius: 10px;
+}
+
+.save-sites .manage .display-current div .edit-site {
+    color: rgb(0, 0, 238);
+}
+
+.save-sites .manage .display-current div .remove-site {
+    margin-left: 10px;
+    color: rgb(238, 0, 0);
+}
+
+.save-sites .manage .add-new {
+    width: 30%;
+    height: 95%;
+    right: 0;
+    display: block;
+    position: absolute;
+    padding-top: 2%;
+}
+
+.save-sites .manage .add-new input {
+    width: 84%;
+    height: 7%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 5%;
+    padding: 3%;
+    border-radius: 10px;
+}
+
+.save-sites .manage .add-new span {
+    margin-left: 5%;
+}
+
+.save-sites .manage .add-new .btn {
+    padding: unset;
+    width: 90%;
+    height: 10%;
+    background-color: rgba(135, 206, 235, 0.6);
+    margin-top: 8%;
+}
+
+.save-sites .manage .add-new .close {
+    background-color: rgba(235, 135, 135, 0.6);
+    margin-top: 3%;
+}
+
+.settings {
+    position: absolute;
+    display: block;
+    width: 20%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition-duration: 1s;
+    transform: scaleX(0);
+    transform-origin: 0% 50%;
+    z-index: 2;
+    font-size: larger;
+}
+
+.settings div {
+    width: 90%;
+    margin: 5%;
+    display: block;
+    position: relative;
+}
+
+.settings .save-settings {
+    color: blue;
+}
+
+.settings div .display-seconds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.settings div .display-seconds:hover,
+.settings .save-settings:hover,
+.save-sites .manage .display-current div .edit-site:hover,
+.save-sites .manage .display-current div .remove-site:hover,
+.save-sites .manage .add-new .btn {
+    cursor: pointer;
+}
+
+.settings,
+.save-sites,
+.save-sites a,
+.save-sites .manage .display-current {
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: 0;
+}
+
+.save-sites::-webkit-scrollbar,
+.save-sites a::-webkit-scrollbar,
+.settings::-webkit-scrollbar,
+.save-sites .manage .display-current::-webkit-scrollbar {
+    display: none;
+}
+
+.search-bar input:focus,
+.save-sites .manage .add-new input[type='text']:focus {
+    outline: none;
+}

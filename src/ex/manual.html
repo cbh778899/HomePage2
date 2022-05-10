@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>用户手册</title>
+        <script type="text/javascript">
+            let last_highlight = null;
+
+            function highlight(id) {
+                if(last_highlight)
+                    document.getElementById(last_highlight).style.backgroundColor = 'unset';
+                document.getElementById(id).style.backgroundColor = 'rgb(255, 246, 84)';
+                last_highlight = id;
+            }
+        </script>
+    </head>
+    <body style="font-size: x-large; color: rgb(18, 18, 18); background-color: rgb(238, 238, 238);">
+        <pre>
+本网页应用所有功能都是基于js实现的，请在使用时打开js
+本网页应用基础为组件，对于外部组件（用户可自行编辑的组件），每个组件为一个方法
+主界面分为侧边栏（id: LOC_SIDE）和主界面（id：LOC_MAIN），请根据需要使用
+侧边栏组件统一 class为icon
+用户编辑组件时请在external_tools.js中进行编辑，并将方法名放置在external_tools变量里，程序加载时会自动进行加载
+external_tools数组中元素的命名规则：{timing: START(比默认组件更先加载) / END(在默认组件后加载), entry: 方法名}
+默认组件中有loadExternal选项，当该组件加载完毕会进行加载，如需使用，请用 组件名.loadExternal = 方法
+
+默认组件包括：时钟，搜索，网址收藏，设置，用户手册
+· 时钟：在<span onclick="highlight('how-to-change-settings')" style="color: blue;">【更改设置】</span>中可以更改是否显示秒数
+· 搜索：在<span onclick="highlight('how-to-change-settings')" style="color: blue;">【更改设置】</span>中可以更改搜索引擎
+· 网址收藏：点击网址收藏小组件，在“管理收藏网址”选项里可以进行添加，删除和编辑已收藏的网址
+    · 在网址收藏界面拖动网站可以进行排序（管理收藏网址选项的位置无法更改）
+<span id="how-to-change-settings">· 设置：点击后可以更改各种默认组件的设置或保存设置</span>
+    <span id="how-to-save">· 保存设置：点击保存设置，会自动下载settings.js。请允许下载该文件，并将其放至 本应用目录/src/js 中，替换原有settings.js文件</span>
+<span style="color: rgb(238, 0, 0);">* 注意：更改过后不会自动保存，请查看如何<span onclick="highlight('how-to-save')" style="color: blue;">【保存设置】</span></span>
+
+声明：
+使用的图标来自于bootstrap icons：<a href="https://icons.getbootstrap.com/" target="_blank">https://icons.getbootstrap.com/</a>
+
+作者：
+<a href="https://github.com/cbh778899" target="_blank">lililele</a>
+        </pre>
+    </body>
+</html>
