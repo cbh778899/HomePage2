@@ -63,36 +63,40 @@ function rightClickToSavedSites() {
  * @description Add baidu as a search engine
  */
 function useBaiduSearchEngine() {
+    const default_search_engine_submit = document.getElementById('search_bar_form').onsubmit;
+
+    function baiduSearch(event) {
+        event.preventDefault();
+        const search_value = event.target.search.value;
+        event.target.search.value = ''
+        const query = "https://www.baidu.com/s?wd="+search_value.replaceAll(' ', '%20');
+    
+        const search = document.createElement('a');
+        search.href = query;
+        search.target = '_blank';
+        document.body.appendChild(search);
+        search.click();
+        search.remove();
+    }
+
     function addOptionBaidu() {
         const search_engine_select = document.getElementById('change-search-engine')
         search_engine_select.insertAdjacentHTML("beforeend",
         `<option value='BAIDU' ${_settings.search_engine === 'BAIDU' ? 'selected' : ''}>Baidu</option>`)
 
-        const previous_search_engine_submit = document.getElementById('search_bar_form').onsubmit;
-
         search_engine_select.onchange = event => {
             _settings.search_engine = event.target.value;
             if(event.target.value === 'BAIDU') {
-                document.getElementById('search_bar_form').onsubmit = event => {
-                    event.preventDefault();
-                    const search_value = event.target.search.value;
-                    event.target.search.value = ''
-                    const query = "https://www.baidu.com/s?wd="+search_value.replaceAll(' ', '%20');
-
-                    const search = document.createElement('a');
-                    search.href = query;
-                    search.target = '_blank';
-                    document.body.appendChild(search);
-                    search.click();
-                    search.remove();
-                }
+                document.getElementById('search_bar_form').onsubmit = baiduSearch;
             } else {
-                document.getElementById('search_bar_form').onsubmit = previous_search_engine_submit;
+                document.getElementById('search_bar_form').onsubmit = default_search_engine_submit;
             }
         }
     }
     
     document.getElementById(settings.id).addEventListener('click', addOptionBaidu)
+    if(_settings.search_engine === 'BAIDU')
+        document.getElementById('search_bar_form').onsubmit = baiduSearch;
 }
 
 // external tools ends here
