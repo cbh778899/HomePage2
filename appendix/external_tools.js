@@ -99,11 +99,127 @@ function useBaiduSearchEngine() {
         document.getElementById('search_bar_form').onsubmit = baiduSearch;
 }
 
+/**
+ * @description A nice and little calculator
+ */
+async function calculatorComponent() {
+
+    async function closeCalculator() {
+        const calculator_main = document.getElementById('calculator-comp');
+        calculator_main.style.transform = 'scaleY(0)';
+        await new Promise(s=>setTimeout(s, 1000));
+        calculator_main.remove()
+        document.getElementById('calculator').onclick = calculator;
+        document.body.removeEventListener('keydown', calculatorInput)
+    }
+
+    function calculatorInput(event) {
+        let value;
+        const calculator_input = document.getElementById('calculator-input');
+        if(event.key) {
+            value = event.key;
+        } else {
+            value = event.target.textContent;
+        }
+        let content = calculator_input.value;
+        switch(value) {
+            case 'Backspace':
+            case 'Delete':
+                content = content.substring(0, content.length - 1);
+                break;
+            case 'Escape':
+            case 'AC':
+                content = '';
+                break;
+            case '=':
+            case 'Enter':
+                calculate();
+                return;
+            case '0': case '1': case '2': case '3': case '4': case '5':
+            case '6': case '7': case '8': case '9': case '+': case '-':
+            case '*': case '/': case '.':
+                content += value;
+                break;
+            default: break;
+        }
+        calculator_input.value = content;
+    }
+
+    function calculate() {
+        const calculator_input = document.getElementById('calculator-input');
+        const value = calculator_input.value;
+        let result;
+        value.split('+').forEach((e, i)=>{
+            let minus_value;
+            e.split('-').forEach((e1, i1)=>{
+                let multiply_value;
+                e1.split('*').forEach((e2, i2)=>{
+                    let divide_value;
+                    e2.split('/').forEach((e3, i3)=>{
+                        let number = parseFloat(e3);
+                        divide_value = i3 === 0 ? number : divide_value / number;
+                    })
+                    multiply_value = i2 === 0 ? divide_value : multiply_value * divide_value;
+                })
+                minus_value = i1 === 0 ? multiply_value : minus_value - multiply_value;
+            })
+            result = i === 0 ? minus_value : result + minus_value;
+        })
+        calculator_input.value = result;
+    }
+
+    async function calculator() {
+        document.getElementById('calculator').onclick = closeCalculator;
+        document.getElementById(LOC_MAIN).insertAdjacentHTML('afterbegin', `
+            <div class='calculator' id='calculator-comp'>
+                <input type='text' id='calculator-input' class='calculator-input' disabled>
+                <span class='calculator-key low'>AC</span>
+                <span class='calculator-key low'>/</span>
+                <span class='calculator-key low'>*</span>
+                <span class='calculator-key low edge'>-</span>
+                <div class='part'>
+                    <span class='calculator-key'>7</span>
+                    <span class='calculator-key'>8</span>
+                    <span class='calculator-key edge'>9</span>
+                    <span class='calculator-key'>4</span>
+                    <span class='calculator-key'>5</span>
+                    <span class='calculator-key edge'>6</span>
+                </div>
+                <span class='calculator-key high'>+</span>
+                <div class='part'>
+                    <span class='calculator-key'>1</span>
+                    <span class='calculator-key'>2</span>
+                    <span class='calculator-key edge'>3</span>
+                    <span class='calculator-key wide'>0</span>
+                    <span class='calculator-key edge'>.</span>
+                </div>
+                <span class='calculator-key high'>=</span>
+            </div>
+        `)
+
+        const calculator_main = document.getElementById('calculator-comp');
+        await new Promise(s=>setTimeout(s, 1));
+        calculator_main.style.transform = 'none';
+
+        document.querySelectorAll('.calculator-key').forEach(e=>e.onclick = calculatorInput);
+        document.body.addEventListener('keydown', calculatorInput)
+    }
+
+    document.getElementById(save_sites.id).insertAdjacentHTML('afterend', `
+    <div id='calculator' class='icon' title='计算器'>
+        <img src='src/pic/calculator.svg' class='ico-img'>
+    </div>
+    `);
+
+    document.getElementById('calculator').onclick = calculator;
+}
+
 // external tools ends here
 
 const external_tools = [
     {timing: START, entry: saveSettingsToLocalStorage},
     {timing: START, entry: loadSettingsFromLocalStorage},
     {timing: END, entry: rightClickToSavedSites},
-    {timing: END, entry: useBaiduSearchEngine}
+    {timing: END, entry: useBaiduSearchEngine},
+    {timing: END, entry: calculatorComponent}
 ]
