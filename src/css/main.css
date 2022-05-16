@@ -1,8 +1,9 @@
 body {
     margin: 0;
     padding: 0;
+    background: url("../pic/background.png") no-repeat center center fixed;
+    background-size: cover;
     background-color: rgba(18, 18, 18);
-    background-image: url("../pic/background.png");
 }
 
 .main-view {
